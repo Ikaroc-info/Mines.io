@@ -1,0 +1,27 @@
+Client :
+- Fichier html ou js: affichage de connexion et de jeu des participant, réception des données du serveur 
+- Script en js : récupération input, transfer au server
+
+Input client :
+- Vecteur de déplacement
+- input de connexion
+
+Serveur :
+- Fichier js
+- Calcul élémenent et stockage des éléments du jeu (position,collision, taille, bouffe)
+- gestion des connexions en temps réels
+
+transmission server client :
+- Position des différents éléments (taille, joueur nouriture...)
+- Notification de jeu
+- validation des requettes
+
+transmission server data base :
+- requète de données
+
+Data base :
+- script traduction des requetes en sql (js)
+- Stockage des profils en information
+
+transmission data base server :
+- Information demandées 
