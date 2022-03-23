@@ -1,51 +1,84 @@
+html{
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
-  }
+  margin: 0px;
+  height: 100%;
+}
+
+#root {
+  margin: 0px;
+  height: 100%;
+}
   
-  ol, ul {
-    padding-left: 30px;
-  }
+ol, ul {
+  padding-left: 30px;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.player {
+  width: 80%;
+  height:80%;
   
-  .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-  
-  .status {
-    margin-bottom: 10px;
-  }
-  
-  .square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
-  }
-  
-  .square:focus {
-    outline: none;
-  }
-  
-  .kbd-navigation .square:focus {
-    background: #ddd;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .game-info {
-    margin-left: 20px;
-  }
-  
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.circle {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 35%;
+  width: 200px;
+  height: 200px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.opponent {
+  display: flex;
+  position: absolute;
+  top: 20%;
+  left:30%;
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.text {
+  font-weight: bold;
+  color: #FFF;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.game-info {
+  margin-left: 20px;
+}
