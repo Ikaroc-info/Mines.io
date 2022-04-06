@@ -35,10 +35,10 @@ foods.forEach(e =>{
 for (player in players){
     if (player != packet[0]){
         if ((Math.sqrt((players[player]["position"][0]-players[packet[0]]["position"][0])**2 + (players[player]["position"][1]-players[packet[0]]["position"][1])**2)) < players[packet[0]]["size"]){
-            console.log("collision")
             if (players[packet[0]]["size"] > players[player]["size"]){
                 players[packet[0]]["size"] += players[player]["size"]
                 players[player]["size"] = 0
+                delete players[player]
             }else{
                 players[player]["size"] += players[packet[0]]["size"]
                 players[packet[0]]["size"] = 0
