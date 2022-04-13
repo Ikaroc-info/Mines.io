@@ -35,6 +35,15 @@
       <b>Message : </b><input type="text" name="message" id="message" style="width:250px;" /> <input type="submit" value="Envoyer" />
     </form>
     <script type="text/javascript">
+      function getMousePosition(event)
+      {
+        var e = event || window.event;
+        var scroll = new Array((document.documentElement && document.documentElement.scrollLeft) || window.pageXOffset || self.pageXOffset || document.body.scrollLeft,(document.documentElement && document.documentElement.scrollTop) || window.pageYOffset || self.pageYOffset || document.body.scrollTop);;
+        return new Array(e.clientX + scroll[0] - document.body.clientLeft,e.clientY + scroll[1] - document.body.clientTop);
+      }
+      </script>
+      <div id="mouseInfo" style="width:400px;height:300px;background:red"></div>
+    <script type="text/javascript">
     // On demande le pseudo de l'utilisateur
     var myPseudo = prompt('Votre pseudo ?') || 'Utilisateur';
     var myFood = [];
@@ -60,16 +69,22 @@
       myFood = foods;
     });
 
-    
+    var mouseInfo = document.getElementById('mouseInfo');
+    var mousePosition=[0,0]
+      mouseInfo.onmousemove = function(event){
+        var mouseInfo = document.getElementById('mouseInfo');
+        mousePosition = getMousePosition(event);
+        mouseInfo.innerHTML = 'x:'+mousePosition[0] + 'y:'+mousePosition[1];
+      };
     // Quand on veut envoyer une coo (on a validé le formulaire)
     function envoiMessage(mess) {
-      
       height = 500;
       width = 500;
 
-      for (let i=0; i< 20; i++){
+      for (let i=0; i< 10000; i++){
+        
           
-          direction = [Math.floor(Math.random()*height),Math.floor(Math.random()*width)]
+          direction = [mousePosition[0],mousePosition[1]]
           packet = {"name" : myPseudo, "direction": direction}
           console.log(packet)
           socket.emit('newPacket', packet);

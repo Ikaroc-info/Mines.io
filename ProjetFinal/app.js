@@ -4,10 +4,18 @@ var fs      =	require('fs');
 // Creation du serveur
 var app = http.createServer(function (req, res) {
 	// On lit notre fichier app.html
-	fs.readFile('./tchat.html', 'utf-8', function(error, content) {
+	if (req.url==='/'){
+	fs.readFile('./Connexion.html', 'utf-8', function(error, content) {
 		res.writeHead(200, {'Content-Type' : 'text/html'});
 		res.end(content);
 	});
+}
+if (req.url==='/test'){
+	console.log(players)
+	fs.readFile('./tchat.html', 'utf-8', function(error, content) {
+		res.writeHead(200, {'Content-Type' : 'text/html'});
+		res.end(content);
+})};	
 });
 
 // Variables globales
@@ -36,6 +44,11 @@ io.sockets.on('connection', function (socket) {
 	// On donne les foods
 	socket.emit('recupererFoods', foods);
 
+	// login
+	socket.on('Credential', function (cred){
+		console.log(cred.pseudo)
+		console.log(cred.color)
+	});
 	// Quand on reçoit une nouvelle coo
 	socket.on('newPacket', function (packet) {
 		//update position
