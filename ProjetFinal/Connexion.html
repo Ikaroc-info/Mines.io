@@ -56,6 +56,7 @@
       </div>
     </form>
   </div>
+
     <script type="text/javascript">
     var socket = io.connect();
 
@@ -64,7 +65,7 @@
       var pseudo = document.getElementById('pseudo').value;
       var color = document.getElementById('color').value;
       socket.emit('Credential', {'pseudo' : pseudo,'color' : color, });
-      document.location.href='http://localhost:8080/test'; 
+      document.location.href='http://localhost:8080/test?login='+pseudo+'&color='+color; 
       return false;
     }
     </script>
