@@ -45,7 +45,9 @@
       <div id="mouseInfo" style="width:400px;height:300px;background:red"></div>
     <script type="text/javascript">
     // On demande le pseudo de l'utilisateur
-    var myPseudo = prompt('Votre pseudo ?') || 'Utilisateur';
+    url=window.location.href
+    cred=url.split('?')[1].split('&')
+    var myPseudo=cred[0].split('=')[1]
     var myFood = [];
     // On se connecte au serveur 
     var socket = io.connect();

@@ -4,13 +4,14 @@ var fs      =	require('fs');
 // Creation du serveur
 var app = http.createServer(function (req, res) {
 	// On lit notre fichier app.html
-	if (req.url==='/'){
+	var t_req =req.url.split('?')[0]
+	if (t_req==='/'){
 	fs.readFile('./Connexion.html', 'utf-8', function(error, content) {
 		res.writeHead(200, {'Content-Type' : 'text/html'});
 		res.end(content);
 	});
 }
-if (req.url==='/test'){
+if (t_req==='/test'){
 	console.log(players)
 	fs.readFile('./tchat.html', 'utf-8', function(error, content) {
 		res.writeHead(200, {'Content-Type' : 'text/html'});
@@ -30,6 +31,7 @@ var io = require('socket.io')(http);
 
 // Socket io ecoute maintenant notre application !
 io = io.listen(app); 
+
 
 // Quand une personne se connecte au serveur
 io.sockets.on('connection', function (socket) {
