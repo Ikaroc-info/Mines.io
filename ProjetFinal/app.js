@@ -23,6 +23,7 @@ if (req.url==='/test'){
 // liste des messages de la forme { pseudo :{ coos:{x:1 , y:2}, size : 231}}
 var players = {};
 foods = [[2,7],[2,0],[0,5]]
+const vitesse = (size)=>{}
 //// SOCKET.IO ////
 
 var io = require('socket.io')(http);
@@ -53,14 +54,14 @@ io.sockets.on('connection', function (socket) {
 	socket.on('newPacket', function (packet) {
 		//update position
 		console.log(packet);
-		players[packet["name"]]["position"][0] += packet["direction"][0]
-		players[packet["name"]]["position"][1] += packet["direction"][1]
+		players[packet["name"]]["position"][0] += packet["direction"][0] * 1000/players[packet['name']]["size"];
+		players[packet["name"]]["position"][1] += packet["direction"][1] * 1000/players[packet['name']]["size"];
 
 		//check for food
 		foods.forEach(e =>{
 			if ((Math.sqrt((e[0]-players[packet["name"]]["position"][0])**2 + (e[1]-players[packet["name"]]["position"][1])**2)) > players[packet["name"]]["size"]){
 				foods.pop(e)
-				players[packet["name"]]["size"] += 2
+				players[packet["name"]]["size"] += 5
 				foods.push([Math.round(Math.random()*10),Math.round(Math.random()*10)])
 			}
 		})
