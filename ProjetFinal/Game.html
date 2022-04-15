@@ -130,37 +130,30 @@
 
             const e = React.createElement;
 
-            let players= {
-            "JohnDu54": {
-                "position": [400,300],
-                "size":200,
-                "image":"Ciarletta.png",
-            },
-            "Vaxou": {
-                "position": [1000,500],
-                "size":200,
-                "image":"Vaxou.png",
-            },
-            "Rousseau": {
-                "position": [1400,300],
-                "size":300,
-                "image":"Vaxou.png",
-            }
-            };
-
-            let foods = {
-            "food1": [350,500],
-            "food2": [200,100],
-            "food3": [175,400],
-            "food4": [900,230],
-            "food5": [977,500]};
+            let players= {};
+            let url=window.location.href
+            let cred=url.split('?')[1].split('&')
+            let myname=cred[0].split('=')[1]
+            let playersize=200;
+            let foods = [];
             let foodsize = 100; 
 
-            let playersize=200;
             let w = window.innerWidth;
             let h = window.innerHeight;
-            let myname= "JohnDu54";
 
+            var socket = io.connect();
+            socket.emit('newPlayer', myname);
+
+            // On creer l'evenement recupererInfos pour recuperer direcement les joueurs sur le serveur
+            socket.on('recupererInfos', function (playersInfos) {
+                // playersInfos est le tableau contenant tous les coos, usernames...
+                players=playersInfos
+            });
+
+            //idem avec la nourriture
+            socket.on('recupererFoods', function (foodsInfos) {
+                foods = foodsInfos;
+            });
 
             class Game extends React.Component {
             _onMouseMove(e) {
@@ -177,7 +170,9 @@
                 var norm = Math.sqrt(x_vect*x_vect+y_vect*y_vect)
                 x_vect=x_vect/norm
                 y_vect=-y_vect/norm
-                console.log(x_vect,y_vect)
+                let direction=[x_vect, y_vect]
+                let packet = {"name" : myname, "direction": direction}
+                socket.emit('newPacket', packet);
                 return e (
                     'div', {className:"parent", onMouseMove:this._onMouseMove.bind(this)},
                         e ('div', {id:"game"}, 
@@ -206,7 +201,7 @@
                 };
                 return e(
                     'div', {className:"opponent", style:playerStyle},
-                        e('img',{src:'./images/'+players[player]["image"],alt:"Mechant" }),
+                        e('img',{src:'./images/'+players[player]["image"]+'png',alt:"Mechant" }),
                         e('p', {className:"text"}, player)
                 )
             }
