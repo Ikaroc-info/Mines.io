@@ -9,14 +9,16 @@ var app = http.createServer(function (req, res) {
 	fs.readFile('./Connexion.html', 'utf-8', function(error, content) {
 		res.writeHead(200, {'Content-Type' : 'text/html'});
 		res.end(content);
-	});
-}
-if (t_req==='/test'){
-	console.log(players)
-	fs.readFile('./tchat.html', 'utf-8', function(error, content) {
-		res.writeHead(200, {'Content-Type' : 'text/html'});
-		res.end(content);
-})};	
+		});
+	}
+	if (t_req==='/test'){
+		console.log(players)
+		fs.readFile('./Game.html', 'utf-8', function(error, content) {
+			res.writeHead(200, {'Content-Type' : 'text/html'});
+			res.end(content);
+		})
+		
+	};	
 });
 
 // Variables globales
